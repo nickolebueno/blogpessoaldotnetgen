@@ -88,7 +88,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                     return await _contexto.Postagens
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
-                        .Where(p => p.Criador.Email.Contains(emailCriador))
+                        .Where(p => p.Criador.Email == emailCriador)
                         .ToListAsync();
 
                 case (null, _, null):
@@ -120,7 +120,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Criador)
                         .Where(p =>
                             p.Tema.Descricao.Contains(descricaoTema) &
-                            p.Criador.Nome.Contains(emailCriador))
+                            p.Criador.Nome ==emailCriador)
                         .ToListAsync();
 
                 case (_, null, _):
@@ -129,7 +129,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Criador)
                         .Where(p =>
                             p.Titulo.Contains(tituloPostagem) &
-                            p.Criador.Email.Contains(emailCriador))
+                            p.Criador.Email == emailCriador)
                         .ToListAsync();
 
                 case (_, _, _):
@@ -139,7 +139,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Where(p =>
                             p.Titulo.Contains(tituloPostagem) |
                             p.Tema.Descricao.Contains(descricaoTema) |
-                            p.Criador.Email.Contains(emailCriador))
+                            p.Criador.Email == emailCriador)
                         .ToListAsync();
             }
         }
