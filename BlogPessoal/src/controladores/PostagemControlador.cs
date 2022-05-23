@@ -53,7 +53,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="idPostagem">Id da postagem</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna a postagem</response>
-        /// <response code="404">Postagem não existente</response>
+        /// <response code="404">Id postagem não existente</response>
         [HttpGet("id/{idPostagem}")]
         [Authorize]
         public async Task<ActionResult> PegarPostagemPeloIdAsync([FromRoute] int idPostagem)
@@ -76,9 +76,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="emailCriador">E-mail do criador</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna postagens</response>
-        /// <response code="204">Postagns não existe pra essa pesquisa</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Tema))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        /// <response code="204">Postagens não existe pra essa pesquisa</response>
         [HttpGet("pesquisa")]
         [Authorize]
         public async Task<ActionResult> PegarPostagensPorPesquisaAsync(
@@ -113,8 +111,6 @@ namespace BlogPessoal.src.controladores
         /// </remarks>
         /// <response code="201">Retorna postagem criada</response>
         /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Postagem))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> NovaPostagemAsync([FromBody] Postagem postagem)
@@ -150,8 +146,6 @@ namespace BlogPessoal.src.controladores
         /// </remarks>
         /// <response code="200">Retorna postagem atualizada</response>
         /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Postagem))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize]
         public async Task<ActionResult> AtualizarPostagemAsync([FromBody] Postagem postagem)
@@ -173,7 +167,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="idPostagem">Id da postagem</param>
         /// <returns>ActionResult</returns>
         /// <response code="204">Postagem deletada</response>
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        /// <response code="404">Id postagem não existente</response>
         [HttpDelete("deletar/{idPostagem}")]
         [Authorize]
         public async Task<ActionResult> DeletarPostagem([FromRoute] int idPostagem)

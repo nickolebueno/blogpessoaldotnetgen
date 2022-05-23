@@ -36,8 +36,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Lista de temas</response>
         /// <response code="204">Lista vasia</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize]
         public async Task<ActionResult> PegarTodosTemasAsync()
@@ -56,8 +54,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna o tema</response>
         /// <response code="404">Tema não existente</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Tema))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idTema}")]
         [Authorize]
         public async Task<ActionResult> PegarTemaPeloIdAsync([FromRoute] int idTema)
@@ -79,8 +75,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna temas</response>
         /// <response code="204">Descrição não existe</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Tema))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("pesquisa")]
         [Authorize]
         public async Task<ActionResult> PegarTemasPelaDescricaoAsync([FromQuery] string descricaoTema)
@@ -107,9 +101,6 @@ namespace BlogPessoal.src.controladores
         ///
         /// </remarks>
         /// <response code="201">Retorna tema criado</response>
-        /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Tema))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> NovoTemaAsync([FromBody] Tema tema)
@@ -136,8 +127,6 @@ namespace BlogPessoal.src.controladores
         /// </remarks>
         /// <response code="200">Retorna tema atualizado</response>
         /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Tema))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize(Roles = "ADMINISTRADOR")]
         public async Task<ActionResult> AtualizarTema([FromBody] Tema tema)
@@ -159,7 +148,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="idTema">Id do tema</param>
         /// <returns>ActionResult</returns>
         /// <response code="204">Tema deletado</response>
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        /// <response code="404">Id tema não existe</response>
         [HttpDelete("deletar/{idTema}")]
         [Authorize(Roles = "ADMINISTRADOR")]
         public async Task<ActionResult> DeletarTema([FromRoute] int idTema)

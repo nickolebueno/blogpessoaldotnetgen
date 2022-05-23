@@ -56,9 +56,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="idUsuario">Id do usuario</param>
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna o usuario</response>
-        /// <response code="404">Usuario não existente</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Usuario))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        /// <response code="404">Id de usuario não existe</response>
         [HttpGet("id/{idUsuario}")]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuarioPeloIdAsync([FromRoute] int idUsuario)
@@ -81,8 +79,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna o usuario</response>
         /// <response code="204">Nome não existe</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Usuario))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuariosPeloNomeAsync([FromQuery] string nomeUsuario)
@@ -101,8 +97,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna o usuario</response>
         /// <response code="404">Email não existente</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Usuario))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("email/{emailUsuario}")]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuarioPeloEmailAsync([FromRoute] string emailUsuario)
@@ -133,11 +127,7 @@ namespace BlogPessoal.src.controladores
         ///
         /// </remarks>
         /// <response code="201">Retorna usuario criado</response>
-        /// <response code="400">Erro na requisição</response>
         /// <response code="401">E-mail ja cadastrado</response>
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Usuario))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost("cadastrar")]
         [AllowAnonymous]
         public async Task<ActionResult> NovoUsuarioAsync([FromBody] Usuario usuario)
@@ -173,8 +163,6 @@ namespace BlogPessoal.src.controladores
         /// </remarks>
         /// <response code="200">Retorna usuario atualizado</response>
         /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> AtualizarUsuarioAsync([FromBody] Usuario usuario)
@@ -208,11 +196,7 @@ namespace BlogPessoal.src.controladores
         ///
         /// </remarks>
         /// <response code="201">Retorna usuario criado</response>
-        /// <response code="400">Erro na requisição</response>
         /// <response code="401">E-mail ou senha invalido</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost("logar")]
         [AllowAnonymous]
         public async Task<ActionResult> LogarAsync([FromBody] Usuario usuario)
@@ -234,7 +218,7 @@ namespace BlogPessoal.src.controladores
         /// <param name="idUsuario">Id do usuario</param>
         /// <returns>ActionResult</returns>
         /// <response code="204">Usuario deletado</response>
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        /// <response code="404">Id de usuario invalido</response>
         [HttpDelete("deletar/{idUsuario}")]
         [Authorize(Roles = "ADMINISTRADOR")]
         public async Task<ActionResult> DeletarUsuarioAsync([FromRoute] int idUsuario)
